@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TOEBEANS Django Backend - Quick Start Guide
 
 ## What's Been Created
@@ -329,3 +330,7 @@ Before deploying:
 **Your TOEBEANS backend is now ready to use!**
 
 For detailed instructions, see `SETUP_GUIDE.md`
+=======
+# CSIC-Coursework
+Hack Me If You Can
+>>>>>>> 5c3ad5f609f1c657fe3de2f0fd92c6c448d3b390
