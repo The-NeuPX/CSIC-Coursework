@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TOEBEANS - Footwear Store{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'store/css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Promo bar -->
+    <div class="promo-bar">
+        🎉 Welcome to TOEBEANS - Premium Footwear Collection 🎉
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="{% url 'home' %}" style="text-decoration: none; color: #0e0c0c;">TOEBEANS</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'shop' %}">Shop</a></li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'research' %}">Research</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="profile-link">{{ user.first_name|default:user.email }}</a>
+                <a href="{% url 'logout' %}" class="logout">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="login">Login</a>
+                <a href="{% url 'signup' %}" class="signup">Sign Up</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                    <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About TOEBEANS</h3>
+                <p>Your premium footwear destination offering the finest collection of shoes from world-renowned brands.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'shop' %}">Shop</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'blog' %}">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: info@toebeans.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TOEBEANS. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Sign Up - TOEBEANS{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1 style="text-align: center; margin-bottom: 30px;">Create Your Account</h1>
+    
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="errorlist">
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email Address</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <div class="errorlist">
+                    {% for error in form.email.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.first_name.id_for_label }}">First Name</label>
+            {{ form.first_name }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+            {{ form.last_name }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}">Password</label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+                <div class="errorlist">
+                    {% for error in form.password1.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if form.password1.help_text %}
+                <div class="helptext">{{ form.password1.help_text|safe }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+                <div class="errorlist">
+                    {% for error in form.password2.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Create Account</button>
+        </div>
+    </form>
+    
+    <div class="form-link">
+        Already have an account? <a href="{% url 'login' %}">Login here</a>
+    </div>
+</div>
+{% endblock %}

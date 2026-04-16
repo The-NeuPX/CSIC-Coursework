@@ -1,0 +1,69 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Research - TOEBEANS{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 30px 20px;">
+    <h1>Footwear Research & Insights</h1>
+    <p style="color: #666; font-size: 16px; margin-bottom: 30px;">
+        Discover comprehensive research and insights about footwear trends, materials, and technologies.
+    </p>
+    
+    <section style="margin: 40px 0; padding: 30px; background: #f9f9f9; border-radius: 8px;">
+        <h2>The Science of Shoe Comfort</h2>
+        <p style="line-height: 1.8; color: #333;">
+            Comfort in footwear goes beyond just the feel. It involves proper arch support, cushioning technology, 
+            breathable materials, and ergonomic design. At TOEBEANS, we research and test every aspect of shoe design 
+            to ensure our collection meets the highest comfort standards.
+        </p>
+    </section>
+    
+    <section style="margin: 40px 0; padding: 30px; background: #f9f9f9; border-radius: 8px;">
+        <h2>Material Innovation</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+            <div style="background: white; padding: 20px; border-radius: 8px;">
+                <h3 style="margin-top: 0;">Sustainable Materials</h3>
+                <p>Modern footwear brands are increasingly using eco-friendly materials like recycled plastics and organic cotton.</p>
+            </div>
+            <div style="background: white; padding: 20px; border-radius: 8px;">
+                <h3 style="margin-top: 0;">Performance Tech</h3>
+                <p>Advanced technologies like memory foam, gel cushioning, and breathable membranes enhance shoes.</p>
+            </div>
+            <div style="background: white; padding: 20px; border-radius: 8px;">
+                <h3 style="margin-top: 0;">Waterproofing</h3>
+                <p>Modern waterproof coatings keep feet dry while maintaining breathability.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section style="margin: 40px 0; padding: 30px; background: #f9f9f9; border-radius: 8px;">
+        <h2>Shoe Fit Guide</h2>
+        <p style="line-height: 1.8; color: #333;">
+            <strong>Proper Sizing:</strong> Your shoe size should allow for a thumb's width of space between your longest toe and the shoe end.<br>
+            <strong>Width considerations:</strong> Not all feet are the same width. Always check width measurements when shopping online.<br>
+            <strong>Break-in period:</strong> Most quality shoes need a 2-3 week break-in period to reach maximum comfort.<br>
+            <strong>Time of day:</strong> Shop for shoes in the afternoon when your feet are slightly swollen for the most accurate fit.
+        </p>
+    </section>
+    
+    <section style="margin: 40px 0; padding: 30px; background: #f9f9f9; border-radius: 8px;">
+        <h2>Current Market Trends</h2>
+        <ul style="line-height: 1.8; color: #333;">
+            <li><strong>Sustainability:</strong> Eco-conscious consumers are driving demand for sustainable footwear.</li>
+            <li><strong>Custom Fit:</strong> 3D printing and custom molding technologies are revolutionizing shoe fit.</li>
+            <li><strong>Athletic Performance:</strong> Advanced biomechanical research is creating specialized shoes for different activities.</li>
+            <li><strong>Vintage Trends:</strong> Retro styles continue to dominate fashion with modern comfort upgrades.</li>
+            <li><strong>Athleisure:</strong> The fusion of athletic and casual wear continues to grow.</li>
+        </ul>
+    </section>
+    
+    <section style="text-align: center; margin: 40px 0; padding: 30px; background: #000; color: white; border-radius: 8px;">
+        <h2 style="margin-top: 0;">Join Our Research Community</h2>
+        <p>Subscribe to our newsletter for the latest research, insights, and exclusive offers on premium footwear.</p>
+        <form style="display: flex; gap: 10px; max-width: 500px; margin: 20px auto;">
+            <input type="email" placeholder="Your email address" style="flex: 1; padding: 12px; border: none; border-radius: 4px;" required>
+            <button type="submit" class="btn btn-primary" style="padding: 12px 30px;">Subscribe</button>
+        </form>
+    </section>
+</div>
+{% endblock %}
