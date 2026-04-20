@@ -1,0 +1,80 @@
+<div style="max-width: 1200px; margin: 0 auto; padding: 30px 20px;">
+    <a href="{% url 'shop' %}" style="color: #000; text-decoration: none; margin-bottom: 20px; display: inline-block;">← Back to Shop</a>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px;">
+        <!-- Product Image -->
+        <div>
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; border-radius: 8px;">
+            {% else %}
+                <div style="width: 100%; aspect-ratio: 1; background: #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: center;">No Image</div>
+            {% endif %}
+        </div>
+        
+        <!-- Product Info -->
+        <div>
+            <h1 style="margin-top: 0;">{{ product.name }}</h1>
+            
+            <div style="display: flex; align-items: center; gap: 15px; margin: 20px 0;">
+                <span style="font-size: 24px; font-weight: bold;">{{ product.price }}</span>
+                <span style="background: #F5E8C7; padding: 5px 15px; border-radius: 20px;">{{ product.brand.name }}</span>
+            </div>
+            
+            <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3>Product Details</h3>
+                <p><strong>Category:</strong> {{ product.category.name }}</p>
+                <p><strong>Price:</strong> ${{ product.price }}</p>
+                <p><strong>Stock Available:</strong> 
+                    {% if product.stock > 0 %}
+                        <span style="color: green;">{{ product.stock }} units</span>
+                    {% else %}
+                        <span style="color: red;">Out of Stock</span>
+                    {% endif %}
+                </p>
+            </div>
+            
+            {% if product.description %}
+            <div style="margin: 20px 0;">
+                <h3>Description</h3>
+                <p>{{ product.description }}</p>
+            </div>
+            {% endif %}
+            
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                {% if product.stock > 0 %}
+                    <button class="btn btn-primary" style="padding: 15px 30px; font-size: 16px;">Add to Cart</button>
+                {% else %}
+                    <button class="btn btn-primary" style="padding: 15px 30px; font-size: 16px; opacity: 0.6; cursor: not-allowed;" disabled>Out of Stock</button>
+                {% endif %}
+                <a href="{% url 'shop' %}" class="btn btn-secondary" style="padding: 15px 30px; font-size: 16px; text-decoration: none;">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+    
+    {% if related_products %}
+    <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid #ddd;">
+        <h2>Related Products</h2>
+        <div class="products-grid">
+            {% for related in related_products %}
+            <div class="product-card">
+                <div class="product-image">
+                    {% if related.image %}
+                        <img src="{{ related.image.url }}" alt="{{ related.name }}">
+                    {% else %}
+                        <div style="width: 100%; height: 100%; background: #ddd; display: flex; align-items: center; justify-content: center;">No Image</div>
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">{{ related.brand.name }}</div>
+                    <div class="product-name">{{ related.name }}</div>
+                    <div class="product-price">${{ related.price }}</div>
+                    <div class="product-actions">
+                        <a href="{% url 'product_detail' related.id %}" class="btn btn-primary" style="padding: 8px; text-decoration: none;">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>

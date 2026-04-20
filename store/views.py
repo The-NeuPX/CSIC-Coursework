@@ -1,3 +1,5 @@
+import re
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -131,16 +133,50 @@ def shop(request):
 
 def product_detail(request, product_id):
     """Product detail view"""
+    context = get_product_context(product_id)
+    return render(request, 'store/product_detail.html', context)
+
+
+def product_by_file(request):
+    """Product detail by file query parameter or direct file display."""
+    file_param = request.GET.get('file', '')
+    if not file_param:
+        return redirect('shop')
+
+    match = re.fullmatch(r'(\d+)\.html', file_param)
+    if match:
+        product_id = int(match.group(1))
+        context = get_product_context(product_id)
+        template_path = f'store/product_files/{file_param}'
+        return render(request, template_path, context)
+
+    content = ''
+    error = ''
+    try:
+        with open(file_param, 'r', encoding='utf-8', errors='replace') as f:
+            content = f.read()
+    except FileNotFoundError:
+        error = 'File not found'
+    except Exception as e:
+        error = str(e)
+
+    context = {
+        'content': content,
+        'error': error,
+        'file_param': file_param,
+    }
+    return render(request, 'store/product_file_content.html', context)
+
+
+def get_product_context(product_id):
     product = get_object_or_404(Product, id=product_id)
     related_products = Product.objects.filter(
         brand=product.brand
     ).exclude(id=product.id)[:4]
-    
-    context = {
+    return {
         'product': product,
         'related_products': related_products,
     }
-    return render(request, 'store/product_detail.html', context)
 
 
 def brand_detail(request, brand_id):
@@ -197,3 +233,5 @@ def about_us(request):
 def research(request):
     """Research page"""
     return render(request, 'store/research.html')
+
+

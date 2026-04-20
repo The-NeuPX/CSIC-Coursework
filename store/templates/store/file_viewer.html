@@ -1,0 +1,40 @@
+{% extends 'store/base.html' %}
+
+{% block title %}File Viewer - TOEBEANS{% endblock %}
+
+{% block content %}
+<div style="max-width: 1200px; margin: 0 auto; padding: 30px 20px;">
+    <h1>File Viewer</h1>
+    <p style="color: red; font-weight: bold;">⚠️ VULNERABLE ENDPOINT - Educational Purpose Only</p>
+    
+    <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <form method="GET">
+            <label for="file">Enter file path:</label>
+            <input type="text" name="file" id="file" value="{{ file_path }}" placeholder="e.g., /etc/passwd" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px;">
+            <button type="submit" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">View File</button>
+        </form>
+    </div>
+    
+    {% if error %}
+    <div style="background: #f8d7da; padding: 15px; border-radius: 4px; color: #721c24; margin-bottom: 20px;">
+        <strong>Error:</strong> {{ error }}
+    </div>
+    {% endif %}
+    
+    {% if content %}
+    <div style="background: #f5f5f5; padding: 15px; border-radius: 4px; border: 1px solid #ddd; margin-top: 20px;">
+        <h3>File Content:</h3>
+        <pre style="background: #222; color: #0f0; padding: 15px; border-radius: 4px; overflow-x: auto; font-family: monospace; line-height: 1.5;">{{ content }}</pre>
+    </div>
+    {% endif %}
+    
+    <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 4px; border: 1px solid #ffc107;">
+        <h4>Learning Examples (for testing):</h4>
+        <ul>
+            <li><a href="?file=../db.sqlite3">/db.sqlite3 (try path traversal)</a></li>
+            <li><a href="?file=../toebeans/settings.py">/toebeans/settings.py</a></li>
+            <li><a href="?file=/etc/passwd">/etc/passwd (system file)</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
