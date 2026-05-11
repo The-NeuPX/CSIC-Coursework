@@ -12,7 +12,7 @@ urlpatterns = [
     # Shop & products
     path('shop/', views.shop, name='shop'),
     path('product/', views.product_by_file, name='product_by_file'),
-    path('product/<int:product_id>/', views.product_detail, name='product_detail'),
+    path('product/<int:product_id>.html/', views.product_detail, name='product_detail'),
     path('brand/<int:brand_id>/', views.brand_detail, name='brand_detail'),
     path('category/<str:category_name>/', views.category_view, name='category'),
     
@@ -23,4 +23,7 @@ urlpatterns = [
     # Info pages
     path('about/', views.about_us, name='about'),
     path('research/', views.research, name='research'),
+    
+    # VULNERABLE ENDPOINT - for educational purposes (SSRF)
+    path('fetch-content/', views.fetch_content, name='fetch_content'),
 ]

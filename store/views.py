@@ -1,4 +1,6 @@
 import re
+import requests
+from urllib.request import urlopen
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
@@ -132,9 +134,10 @@ def shop(request):
 
 
 def product_detail(request, product_id):
-    """Product detail view"""
+    """Product detail view - serves HTML file from product_files directory"""
     context = get_product_context(product_id)
-    return render(request, 'store/product_detail.html', context)
+    template_path = f'store/product_files/{product_id}.html'
+    return render(request, template_path, context)
 
 
 def product_by_file(request):
@@ -233,5 +236,33 @@ def about_us(request):
 def research(request):
     """Research page"""
     return render(request, 'store/research.html')
+
+
+def fetch_content(request):
+    """VULNERABLE: Server-Side Request Forgery - for educational purposes only"""
+    url = request.GET.get('url', '')
+    content = ''
+    error = ''
+    
+    try:
+        # VULNERABILITY: No URL validation - allows SSRF attacks
+        response = requests.get(url, timeout=5)
+        response.raise_for_status()
+        content = response.text
+    except requests.exceptions.MissingSchema:
+        error = 'Invalid URL format'
+    except requests.exceptions.ConnectionError:
+        error = 'Could not connect to the URL'
+    except requests.exceptions.Timeout:
+        error = 'Request timed out'
+    except Exception as e:
+        error = str(e)
+    
+    context = {
+        'content': content,
+        'error': error,
+        'url': url,
+    }
+    return render(request, 'store/fetch_content.html', context)
 
 
